@@ -23,6 +23,9 @@ class VersionsControllerTest < ActionController::TestCase
     
     get :view, :id => Article.last.id
     assert_response :success
+    
+    comments = assigns(:comments)
+    assert_not_empty comments
 
   end
 end
