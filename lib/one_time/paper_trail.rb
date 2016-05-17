@@ -1,17 +1,14 @@
 a = Article.new
 Article.transaction do
-  a.comments << Comment.new
-  a.comments << Comment.new
+  a.comments.build
+  a.comments.build
   a.save
-  a.touch_with_version
 end
 Article.transaction do
-  c = Comment.new
-  c.save
-  ids = a.comment_ids
-  ids.pop
-  ids.push c.id
-  a.comment_ids = ids
+  a.comments.last.destroy
+  a.comments.reload
+  a.comments.build
+  a.save
   a.touch_with_version
 end
 previous_a = a.versions.first.next.reify(has_many: true)
