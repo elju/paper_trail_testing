@@ -3,6 +3,7 @@ Article.transaction do
   a.comments << Comment.new
   a.comments << Comment.new
   a.save
+  a.touch_with_version
 end
 Article.transaction do
   c = Comment.new
